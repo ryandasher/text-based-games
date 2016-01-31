@@ -250,7 +250,7 @@ def display_location(loc):
     """A helper function for displaying an area's description and exits"""
     # Print a room name.
     print(loc)
-    # print('=' + len(loc))
+    print('=' * len(loc))
 
     # Print the room's description (using textwrap.wrap()).
     print('\n'.join(textwrap.wrap(world_rooms[loc][DESC], SCREEN_WIDTH)))
@@ -323,6 +323,8 @@ def move_direction(direction):
 
     if direction in world_rooms[location]:
         print('You move to the %s.' % direction)
+        location = world_rooms[location][direction]
+        display_location(location)
     else:
         print('You cannot move in that direction.')
 
@@ -782,10 +784,10 @@ class TextAdventureCmd(cmd.Cmd):
             inventory.append(item) # Add to inventory.
             return
 
-            if cant_take:
-                print('You cannot take "%s".' % (item_to_take))
-            else:
-                print('That is not on the ground.')
+        if cant_take:
+            print('You cannot take "%s".' % (item_to_take))
+        else:
+            print('That is not on the ground.')
 
 
     def help_combat(self):
