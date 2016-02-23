@@ -1,7 +1,7 @@
 from time import sleep
 from threading import Thread
 
-story = open("bomb_defusal.txt", "r")
+story = open("data/bomb_defusal.txt", "r")
 story_lines = story.readlines()
 
 """
