@@ -10,7 +10,7 @@ $ python games/filename.py
 
 My first text game. It's vague and not very good. You're tasked with defusing a bomb in a train terminal, and man there is a lot of branching in that choices function. And also apparently I didn't know how to leverage JSON back then.
 
-## TODOS:
+#### TODOS:
 
 * Refactor this code.
 * Write tests.
@@ -20,7 +20,7 @@ My first text game. It's vague and not very good. You're tasked with defusing a 
 
 Find words amid random junk characters and enter them into a command prompt to "hack into the mainframe".
 
-### TODOS:
+#### TODOS:
 
 * Write logic that will start a countdown to run concurrent with the user input after the game has completed.
 * Make difficulty levels (randomize the casing of words, lower timer threshold, use longer passphrases).
@@ -34,6 +34,6 @@ Find words amid random junk characters and enter them into a command prompt to "
 
 A text game tutorial by Al Sweigart, which I learned plenty from.
 
-### TODOS:
+#### TODOS:
 
 * Refactor this code (Make it DRYer, rename variables, etc.).
