@@ -11,10 +11,11 @@ Hidden in the random characters are words that make up the password to access
 the mainframe. Find all of the words, and enter them into the command prompt
 when the output stops. Leave a single space between each word, do not enter any
 commas. You will have %s seconds to enter the words, otherwise the alarm will
-sound and the FBI will be sent to your door. Type 'begin' to start the program.
+sound and the FBI will be sent to your door. See the data_breach_word_list.json
+file if you want to peek at the words that might show up in the program.
+Type 'begin' to start the program.
 """ % (SECONDS)
 
-# TODO: Add documentation comments.
 class DataBreachCmd(standard_commands.StandardCommands):
 	prompt = '\n> '
 
@@ -38,7 +39,6 @@ class DataBreachCmd(standard_commands.StandardCommands):
 		self.game.output_characters()
 
 
-# TODO: Add documentation comments.
 class DataBreach(object):
 
 	def __init__(self):
