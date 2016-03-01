@@ -25,10 +25,7 @@ Find words amid random junk characters and enter them into a command prompt to "
 * Write logic that will start a countdown to run concurrent with the user input after the game has completed.
 * Make difficulty levels (randomize the casing of words, lower timer threshold, use longer passphrases).
 * Write tests.
-* Write class and method documentation.
-* Final word in the passphrase always appears at the end of the character output.
-* See if there is a way to wrap the character output after 80 characters.
-* Add more helpful commands.
+* Wrap the character output after 80 characters.
 
 ## Tutorial Game
 

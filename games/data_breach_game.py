@@ -17,6 +17,7 @@ Type 'begin' to start the program.
 """ % (SECONDS)
 
 class DataBreachCmd(standard_commands.StandardCommands):
+	"""Commands specific to the the Data Breach Game."""
 	prompt = '\n> '
 
 
@@ -24,9 +25,14 @@ class DataBreachCmd(standard_commands.StandardCommands):
 		standard_commands.StandardCommands.__init__(self)
 		self.game = DataBreach()
 		self.passphrase = self.game.create_passphrase()
+		self.program_started = False
 
 
 	def default(self, arg):
+		"""
+		Catches any inputs that do not match an existing method. Compares
+		against the generated passphrase.
+		"""
 		if arg == self.passphrase:
 			print "Congrats. You're in the mainframe!"
 			return True
@@ -36,10 +42,18 @@ class DataBreachCmd(standard_commands.StandardCommands):
 
 	def do_begin(self, arg):
 		"""Starts the program."""
-		self.game.output_characters()
+		if not self.program_started:
+			self.game.output_characters()
+			self.program_started = True
+		else:
+			print "You've already run the program."
+
+
+	do_start = do_begin
 
 
 class DataBreach(object):
+	"""Data Breach Game Class that controls all game logic."""
 
 	def __init__(self):
 		self.sleep_time = .03
@@ -47,6 +61,10 @@ class DataBreach(object):
 
 
 	def load_word_list(self):
+		"""
+		Load the word list JSON file, and randomly select five words for our
+		passphrase using a list comprehension.
+		"""
 		with open('data/data_breach_word_list.json') as json_file:
 			words = json.load(json_file)
 		# Return a list of randomly selected words. Words can be repeated.
@@ -54,11 +72,19 @@ class DataBreach(object):
 
 
 	def create_passphrase(self):
+		"""Join our random list of words into a single spaced string."""
 		return ' '.join(self.word_list)
 
 
 	def output_characters(self):
+		"""
+		Output random junk characters mixed with the words that make up the
+		passphrase. Terminate the output when all words from the list have been
+		displayed.
+		"""
 		characters = string.ascii_letters + string.digits + string.punctuation
+		# Indicate that the program has terminated.
+		self.word_list.append('...terminate')
 		while len(self.word_list):
 			time.sleep(self.sleep_time)
 			if random.randrange(1000) >= 995:
@@ -71,6 +97,7 @@ class DataBreach(object):
 
 
 	def show_word(self, word):
+		"""Display one of the words from the passphrase."""
 		counter = 0
 		for letter in word:
 			print word[counter],
