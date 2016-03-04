@@ -1,4 +1,7 @@
-import json, random, string, sys, textwrap, time
+from threading import Thread
+from time import sleep
+
+import json, os, random, string, sys, textwrap, time
 
 import standard_commands
 
@@ -12,9 +15,9 @@ the mainframe. Find all of the words, and enter them into the command prompt
 when the output stops. Leave a single space between each word, do not enter any
 commas. You will have %s seconds to enter the words, otherwise the alarm will
 sound and the FBI will be sent to your door. See the data_breach_word_list.json
-file if you want to peek at the words that might show up in the program.
-Type 'begin' to start the program.
-""" % (SECONDS)
+file if you want to peek at the words that might show up in the program. Type
+'begin' to start the program.
+""" % SECONDS
 
 class DataBreachCmd(standard_commands.StandardCommands):
 	"""Commands specific to the the Data Breach Game."""
@@ -44,9 +47,23 @@ class DataBreachCmd(standard_commands.StandardCommands):
 		"""Starts the program."""
 		if not self.program_started:
 			self.game.output_characters()
+			print "\n\nYou have %s seconds to solve the puzzle." % SECONDS
 			self.program_started = True
+			countdown = Thread(target = self.countdown, args = (SECONDS,))
+			countdown.daemon = True
+			countdown.start()
 		else:
 			print "You've already run the program."
+
+
+	def countdown(self, seconds):
+		"""Count down until failure."""
+		while seconds:
+			seconds -= 1
+			sleep(1)
+		print "\nYou failed to solve the puzzle in enough time!"
+		# TODO: This isn't enough to fully exit the cmdloop|program.
+		self.onecmd('exit')
 
 
 	do_start = do_begin
