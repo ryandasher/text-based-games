@@ -1,8 +1,10 @@
 from time import sleep
 from threading import Thread
 
-story = open("data/bomb_defusal.txt", "r")
-story_lines = story.readlines()
+import json
+
+STORY = open("data/bomb_defusal.json", "r")
+PARSED_JSON = json.loads(STORY)
 
 """
 With this simple game, I experimented with housing the story text in a separate
@@ -30,7 +32,7 @@ def total_countdown(seconds):
         seconds -= 1
         sleep(1)
     if seconds == 0:
-        print story_lines[19]
+        print PARSED_JSON['Countdown Failure']
         close_it_up()
 
 
@@ -128,7 +130,7 @@ def close_it_up():
     """
     A simple function to help us wrap everything up.
     """
-    story.close()
+    STORY.close()
     exit(1)
 
 
