@@ -25,7 +25,6 @@ Find words amid random junk characters and enter them into a command prompt to "
 * Fix countdown logic so program exits without user input.
 * Make difficulty levels (randomize the casing of words, lower timer threshold, use longer passphrases).
 * Write tests.
-* Wrap the character output after 80 characters.
 * Sometimes real words show up in the jargon. What can be done about this?
 
 ## Tutorial Game

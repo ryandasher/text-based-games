@@ -1,16 +1,24 @@
-from time import sleep
 from threading import Thread
+from time import sleep
 
 import json
+
+import standard_commands
 
 STORY = open("data/bomb_defusal.json", "r")
 PARSED_JSON = json.loads(STORY)
 
-"""
-With this simple game, I experimented with housing the story text in a separate
-text file. It's nice not having all of the story text inside the python file,
-but keeping track of the line numbers in variables isn't ideal.
-"""
+class BombDefusalCmd(standard_commands.StandardCommands):
+    """Commands specific to the Bomb Defusal Game."""
+    def __init__(self):
+        self.game = BombDefusal()
+
+
+class BombDefusal(object):
+    """Bomb Defusal game class that controls all the game logic."""
+    def __init__(self):
+        pass
+
 
 def timer_beeps(amount):
     """

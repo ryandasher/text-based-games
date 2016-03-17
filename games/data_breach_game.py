@@ -1,7 +1,7 @@
 from threading import Thread
 from time import sleep
 
-import json, os, random, string, sys, textwrap, time
+import json, random, string, sys, textwrap, time
 
 import standard_commands
 
@@ -21,9 +21,6 @@ show up in the program. Type 'begin' to start the program.
 
 class DataBreachCmd(standard_commands.StandardCommands):
 	"""Commands specific to the the Data Breach Game."""
-	prompt = '\n> '
-
-
 	def __init__(self):
 		standard_commands.StandardCommands.__init__(self)
 		self.game = DataBreach()
