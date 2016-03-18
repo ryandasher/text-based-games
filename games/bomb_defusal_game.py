@@ -1,7 +1,7 @@
 from threading import Thread
 from time import sleep
 
-import json
+import json, sys
 
 import standard_commands
 
@@ -14,34 +14,76 @@ class BombDefusalCmd(standard_commands.StandardCommands):
         self.game = BombDefusal()
 
 
-class BombDefusal(object):
-    """Bomb Defusal game class that controls all the game logic."""
-    def __init__(self):
+    def do_green(self, arg):
+        """Cut a wire."""
+        self.game.cut_wire(arg)
+
+
+    def do_answer(self, arg):
+        """Answer the phone."""
         pass
 
 
-def timer_beeps(amount):
-    """
-    Let's show some incremental beeps to ratchet up the tension.
-    """
-    while amount > 0:
-        print "(Beep)..."
-        print "\n"
-        amount -= 1
-        sleep(1)
+    do_red = do_green
+    do_yellow = do_green
+    do_phone = do_answer
 
 
-def total_countdown(seconds):
+class BombDefusal(object):
+    """Bomb Defusal game class that controls all the game logic."""
+    def __init__(self):
+        self.counted_down = False
+        self.green_wire, self.yellow_wire, self.red_wire = "Intact"
+
+
+    def countdown(self, seconds):
+        """
+        Run a countdown.
+
+        Args:
+        seconds -- Amount of seconds to countdown (integer).
+        """
+        while seconds:
+            seconds -= 1
+            sleep(1)
+        self.counted_down = True
+
+
+    def timer_beeps(self, amount):
+        """
+        Let's show some incremental beeps to increase the tension.
+
+        Args:
+        amount -- How many beeps we want to display (integer).
+        """
+        while amount > 0:
+            print "(Beep)...\n"
+            amount -= 1
+            sleep(1)
+
+
+    def cut_wire(self, color):
+        """
+        Cut one of the wires.
+
+        Args:
+        color -- The color of the wire you intend to cut (string).
+        """
+        pass
+
+
+def print_characters(characters):
     """
-    This function will begin counting down the total time once it's displayed 
-    to the user.
+    Slowly print characters, so users aren't inundated with a large block of
+    text at one time.
+
+    Args:
+    characters -- The characters to print (string).
     """
-    while seconds:
-        seconds -= 1
-        sleep(1)
-    if seconds == 0:
-        print PARSED_JSON['Countdown Failure']
-        close_it_up()
+    for character in characters:
+        print character,
+        sys.stdout.flush()
+        time.sleep(.05)
 
 
 def choices(color):
@@ -132,14 +174,6 @@ def choices(color):
         color_choice = raw_input("What color wire will you cut?\n> ")
         print "\n"
         choices(color_choice)
-
-
-def close_it_up():
-    """
-    A simple function to help us wrap everything up.
-    """
-    STORY.close()
-    exit(1)
 
 
 print story_lines[0]
