@@ -99,7 +99,7 @@ class DataBreach(object):
 		self.word_list.append('...terminate')
 		while len(self.word_list):
 			time.sleep(self.sleep_time)
-			if random.randrange(1000) >= 995:
+			if random.randrange(1000) >= 595:
 				self.show_word(self.word_list[0])
 				self.word_list.pop(0)
 			else:
@@ -115,12 +115,10 @@ class DataBreach(object):
 		Args:
 		word -- Passphrase part to display (string).
 		"""
-		counter = 0
 		for letter in word:
-			print word[counter],
+			print letter,
 			sys.stdout.flush()
 			time.sleep(self.sleep_time)
-			counter += 1
 
 
 	def countdown(self, seconds):
