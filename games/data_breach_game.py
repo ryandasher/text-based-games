@@ -57,7 +57,6 @@ class DataBreachCmd(standard_commands.StandardCommands):
 
 class DataBreach(object):
 	"""Data Breach Game Class that controls all game logic."""
-
 	def __init__(self):
 		self.sleep_time = .03
 		self.word_list = self.load_word_list()
@@ -110,7 +109,12 @@ class DataBreach(object):
 
 
 	def show_word(self, word):
-		"""Display one of the words from the passphrase."""
+		"""
+		Display one of the words from the passphrase.
+
+		Args:
+		word -- Passphrase part to display (string).
+		"""
 		counter = 0
 		for letter in word:
 			print word[counter],
@@ -120,7 +124,12 @@ class DataBreach(object):
 
 
 	def countdown(self, seconds):
-		"""Run a countdown."""
+		"""
+		Run a countdown.
+
+		Args:
+		seconds -- Amount of seconds to countdown (integer).
+		"""
 		while seconds:
 			seconds -= 1
 			sleep(1)
