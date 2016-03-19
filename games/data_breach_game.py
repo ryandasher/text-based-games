@@ -1,7 +1,7 @@
 from threading import Thread
 from time import sleep
 
-import json, random, string, sys, textwrap, time
+import json, random, string, sys, time
 
 import standard_commands
 
@@ -99,7 +99,7 @@ class DataBreach(object):
 		self.word_list.append('...terminate')
 		while len(self.word_list):
 			time.sleep(self.sleep_time)
-			if random.randrange(1000) >= 595:
+			if random.randrange(1000) >= 995:
 				self.show_word(self.word_list[0])
 				self.word_list.pop(0)
 			else:
