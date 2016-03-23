@@ -8,13 +8,14 @@ $ python games/filename.py
 
 ## Bomb Defusal
 
-My first text game. It's vague and not very good. You're tasked with defusing a bomb in a train terminal, and man there is a lot of branching in that choices function. And also apparently I didn't know how to leverage JSON back then.
+My first attempt at a text game. It has been significantly refactored at this point, as the small narrative has been removed. It is still a work in progress at the moment.
 
 #### TODOS:
 
-* Refactor this code.
+* Finish refactoring this game.
+* Add difficulty levels.
+* Add some much needed complexity.
 * Write tests.
-* Move the text data to a JSON file.
 
 ## Data Breach
 
