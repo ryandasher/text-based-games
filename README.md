@@ -12,9 +12,8 @@ My first attempt at a text game. It has been significantly refactored at this po
 
 #### TODOS:
 
-* Finish refactoring this game.
 * Add difficulty levels.
-* Add some much needed complexity.
+* Add much needed complexity.
 * Write tests.
 
 ## Data Breach

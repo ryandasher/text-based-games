@@ -11,27 +11,27 @@ class BombDefusalCmd(standard_commands.StandardCommands):
         standard_commands.StandardCommands.__init__(self)
         self.game = BombDefusal()
         self.game.start_countdown()
+        self.countdown_message = "The timer ran out. You've been incinerated."
 
 
-    def do_green(self, arg):
+    def do_cut(self, arg):
         """Cut a wire."""
         self.game.cut_wire(arg)
-        if any(color in self.game.cut_wires for colors in ('red', 'green')):
-            if self.game.counted_down:
-                print "The timer ran out. You've been incinerated."
+        if self.game.counted_down:
+            print self.countdown_message
+            return True
+        else:
+            print self.game.wires[arg]
+        if any(color in self.game.cut_wires for color in ('red', 'green')):
             return True
 
 
     def default(self, arg):
         if self.game.counted_down:
-            print "The timer ran out. You've been incinerated."
+            print self.countdown_message
             return True
         else:
             standard_commands.StandardCommands.default(self, arg)
-
-
-    do_red = do_green
-    do_yellow = do_green
 
 
 class BombDefusal(object):
@@ -73,8 +73,10 @@ class BombDefusal(object):
         Args:
         color -- The color of the wire you intend to cut (string).
         """
-        print self.wires[color]
-        self.cut_wires.append(color)
+        if color in self.cut_wires:
+            print "You've already cut this wire!"
+        else:
+            self.cut_wires.append(color)
 
 
 def print_characters(characters):
@@ -93,7 +95,7 @@ def print_characters(characters):
 
 introduction = [
     "There is a bomb sitting in front of you...\n",
-    "It will detonate in one minute."
+    "It will detonate in five seconds."
 ]
 
 print_characters(introduction)
