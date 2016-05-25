@@ -1,0 +1,32 @@
+[{
+	"defense": [
+		"block",
+		"parry"
+	],
+	"directions": [
+		"backward",
+		"forward",
+		"left",
+		"right",
+		"towards"
+	],
+	"actions": [
+		"riposte",
+		"slash",
+		"stab",
+		"strike",
+		"swing",
+		"swipe"
+	],
+	"movements": [
+		"dash",
+		"hurtle",
+		"jump",
+		"leap",
+		"lunge",
+		"roll",
+		"sidestep",
+		"spin",
+		"stride"
+	]
+}]

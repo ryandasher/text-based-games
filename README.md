@@ -8,9 +8,9 @@ $ python games/filename.py
 
 ## Bomb Defusal
 
-My first attempt at a text game. It has been significantly refactored at this point, as the small narrative has been removed. It is still a work in progress at the moment.
+My first attempt at a text game. It has been significantly refactored at this point, as the small narrative has been removed.
 
-#### TODOS:
+#### TODOs:
 
 * Add difficulty levels.
 * Add much needed complexity.
@@ -20,7 +20,7 @@ My first attempt at a text game. It has been significantly refactored at this po
 
 Find words amid random junk characters and enter them into a command prompt to "hack into the mainframe".
 
-#### TODOS:
+#### TODOs:
 
 * Fix countdown logic so program exits without user input.
 * Make difficulty levels (randomize the casing of words, lower timer threshold, use longer passphrases).
@@ -31,6 +31,16 @@ Find words amid random junk characters and enter them into a command prompt to "
 
 A text game tutorial by Al Sweigart, which I learned plenty from.
 
-#### TODOS:
+#### TODOs:
 
 * Refactor this code (Make it DRYer, rename variables, etc.).
+
+## Combat Game
+
+Retype the action prompts within the time limit to successfully defend your character/attack the enemy in medieval combat.
+
+#### TODOs:
+
+* Add difficulty levels -- Randomly generate a different enemy based on difficulty.
+* Create enemies with different statistics and weapons.
+* Write tests.
