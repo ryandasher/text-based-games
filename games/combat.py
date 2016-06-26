@@ -5,8 +5,8 @@ import json, random, sys
 import standard_commands
 
 print """
-Welcome to Combat! Type in the word 'fight' to begin the fight of your life!
-You will be shown an action or defense message that you will need to retype
+Welcome to Combat! Type in the word 'fight' to begin a fight for your life!
+You will be shown an offensive or defensive message that you will need to retype
 in a set amount of time. If you complete the sentence before the countdown
 expires, then you will successfully defend yourself/hit your enemy!
 """
@@ -16,72 +16,58 @@ class CombatCmd(standard_commands.StandardCommands):
     def __init__(self, enemy):
         standard_commands.StandardCommands.__init__(self)
         self.game = CombatGame(enemy)
-        self.enemy = enemy
-        self.program_started = False
-        self.action_message = None
-        self.attacker = None
 
 
     def default(self, arg):
-        if arg == self.action_message:
-            if self.attacker != self.enemy:
-                self.game.decrement_hp(self.enemy)
-            print "PASS!"
-        elif self.program_started:
-            self.game.decrement_hp('player')
-            print "FAIL!"
+        if arg == self.game.msg:
+            self.game.check_action_result(True)
+        elif self.game.fight_started:
+            self.game.check_action_result(False)
         else:
             standard_commands.StandardCommands.default(self, arg)
             return
 
-        if self.game.enemy_hp == 0:
-            print "You defeated your enemy! Type 'fight' to begin a new game!"
-            self.program_started = False
-            self.action_message, self.attacker = None, None
-        elif self.game.player_hp == 0:
-            print "You lost the fight! Type 'fight' to begin a new game!"
-            self.program_started = False
-            self.action_message, self.attacker = None, None
+        if self.game.enemy_hp == 0 or self.game.player_hp == 0:
+            print "The fight is over! Type 'fight' to begin a new game!"
+            self.game.reset_game_state()
 
-        if self.program_started:
-            self.action_message, self.attacker = self.game.show_action()
-            print self.action_message
+        if self.game.fight_started:
+            self.game.show_action()
+            print self.game.msg
 
 
     def do_fight(self, arg):
         """Initiate the fight."""
-        if not self.program_started:
-            self.program_started = True
-            self.action_message, self.attacker = self.game.show_action()
-            print self.action_message
+        if not self.game.fight_started:
+            self.game.show_action()
+            print self.game.msg
         else:
-            print "You're already in a fight!"
-
-
-    def do_turn(self, arg):
-        pass
+            self.game.check_action_result(False)
+            if self.game.player_hp == 0:
+                print "The fight is over! Type 'fight' to begin a new game!"
+                self.game.reset_game_state()
 
 
 class CombatGame(object):
     """Initiate combat with an enemy character."""
     def __init__(self, enemy):
         self.enemy = enemy
-        self.player_hp, self.enemy_hp = (2, 2)
         with open('data/combat_moves.json') as moves_file:
             self.move_set = json.load(moves_file)
+        self.reset_game_state()
 
 
     def show_action(self):
-        attacker = random.choice([self.enemy, "player"])
+        if self.fight_started == False: self.fight_started = True
 
-        if attacker == self.enemy:
+        self.attacker = random.choice([self.enemy, "player"])
+
+        if self.attacker == self.enemy:
             print "You are on defense!\n"
-            msg = self.determine_action_msg('defense')
+            self.msg = self.determine_action_msg('defense')
         else:
             print "You're on the attack!\n"
-            msg = self.determine_action_msg('offense')
-
-        return msg, attacker
+            self.msg = self.determine_action_msg('offense')
 
 
     def determine_action_msg(self, action):
@@ -96,11 +82,32 @@ class CombatGame(object):
         pass
 
 
+    def check_action_result(self, action_success):
+        if action_success == True:
+            if self.attacker != self.enemy:
+                self.decrement_hp(self.enemy)
+            else:
+                print "You successfully defended yourself!"
+        else:
+            if self.attacker == self.enemy:
+                self.decrement_hp('player')
+            else:
+                print "You failed to connect on your blow!"
+
+
     def decrement_hp(self, character):
         if character == self.enemy:
+            print "You successfully hit the %s!" % self.enemy
             self.enemy_hp -= 1
         else:
+            print "The %s has hit you!" % self.enemy
             self.player_hp -= 1
+
+
+    def reset_game_state(self):
+        self.fight_started = False
+        self.player_hp, self.enemy_hp = (2, 2)
+        self.attacker, self.msg = (None, None)
 
 
 CombatCmd("Orc").cmdloop()
