@@ -37,7 +37,7 @@ A text game tutorial by Al Sweigart, which I learned plenty from.
 
 ## Combat Game
 
-Retype the action prompts within the time limit to successfully defend your character/attack the enemy in medieval combat.
+Retype the action prompts within the time limit to successfully defend your character/attack the enemy in medieval combat. This is a prototype for a combat system I'd like to incorporate into some browser-based games.
 
 #### TODOs:
 

@@ -10,14 +10,6 @@
 		"right",
 		"towards"
 	],
-	"actions": [
-		"riposte",
-		"slash",
-		"stab",
-		"strike",
-		"swing",
-		"swipe"
-	],
 	"movements": [
 		"dash",
 		"hurtle",
@@ -28,5 +20,13 @@
 		"sidestep",
 		"spin",
 		"stride"
+	],
+	"offense": [
+		"riposte",
+		"slash",
+		"stab",
+		"strike",
+		"swing",
+		"swipe"
 	]
 }]
