@@ -1,7 +1,7 @@
 from threading import Thread
 from time import sleep
 
-import json, random, string, sys, time
+import json, random, string, sys
 
 import standard_commands
 
@@ -98,7 +98,7 @@ class DataBreach(object):
         # Indicate that the program has terminated.
         self.word_list.append('...terminate')
         while len(self.word_list):
-            time.sleep(self.sleep_time)
+            sleep(self.sleep_time)
             if random.randrange(1000) >= 995:
                 self.show_word(self.word_list[0])
                 self.word_list.pop(0)
@@ -118,7 +118,7 @@ class DataBreach(object):
         for letter in word:
             print letter,
             sys.stdout.flush()
-            time.sleep(self.sleep_time)
+            sleep(self.sleep_time)
 
 
     def countdown(self, seconds):
