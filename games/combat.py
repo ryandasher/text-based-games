@@ -1,4 +1,5 @@
-from threading import Thread
+from threading import Timer
+from time import sleep
 
 import json, random, sys
 
@@ -19,9 +20,11 @@ class CombatCmd(standard_commands.StandardCommands):
 
 
     def default(self, arg):
-        if arg == self.game.msg:
+        if arg == self.game.msg and self.game.counted_down == False:
+            self.game.timer.cancel()
             self.game.check_action_result(True)
         elif self.game.fight_started:
+            self.game.timer.cancel()
             self.game.check_action_result(False)
         else:
             standard_commands.StandardCommands.default(self, arg)
@@ -32,14 +35,14 @@ class CombatCmd(standard_commands.StandardCommands):
             self.game.reset_game_state()
 
         if self.game.fight_started:
-            self.game.show_action()
+            self.game.set_action()
             print self.game.msg
 
 
     def do_fight(self, arg):
         """Initiate the fight."""
         if not self.game.fight_started:
-            self.game.show_action()
+            self.game.set_action()
             print self.game.msg
         else:
             self.game.check_action_result(False)
@@ -57,8 +60,9 @@ class CombatGame(object):
         self.reset_game_state()
 
 
-    def show_action(self):
+    def set_action(self):
         if self.fight_started == False: self.fight_started = True
+        self.counted_down = False
 
         self.attacker = random.choice([self.enemy, "player"])
 
@@ -68,6 +72,8 @@ class CombatGame(object):
         else:
             print "You're on the attack!\n"
             self.msg = self.determine_action_msg('offense')
+        self.timer = Timer(10.0, self.times_up)
+        self.timer.start()
 
 
     def determine_action_msg(self, action):
@@ -78,8 +84,8 @@ class CombatGame(object):
         return movement + ' ' + direction_1 + ' and ' + action + ' ' + direction_2
 
 
-    def determine_countdown(self):
-        pass
+    def times_up(self):
+        self.counted_down = True
 
 
     def check_action_result(self, action_success):
@@ -105,7 +111,7 @@ class CombatGame(object):
 
 
     def reset_game_state(self):
-        self.fight_started = False
+        self.fight_started, self.counted_down = (False, False)
         self.player_hp, self.enemy_hp = (2, 2)
         self.attacker, self.msg = (None, None)
 
